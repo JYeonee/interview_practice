@@ -73,19 +73,26 @@
             }
         }
 
-        // 질문 추가 함수
+        
+        // 질문 추가 함수        
         function addQuestion() {
             let newQuestion = document.getElementById("newQuestion").value;
             if (newQuestion.trim() !== "") {
                 questions.push(newQuestion);
                 localStorage.setItem('questions', JSON.stringify(questions)); // 질문 목록 저장
-                alert("질문이 추가되었습니다.");
+                console.log("질문이 추가되었습니다.");
                 document.getElementById("newQuestion").value = ""; // 입력 필드 초기화
                 loadQuestionList(); // 질문 목록 업데이트
                 updateButtons();
             } else {
                 alert("질문을 입력하세요.");
             }
+        }
+        function show_name(e){
+           var txt = document.getElementById("newQuestion").value;
+           if(e.keyCode == 13){
+               addQuestion()
+           }
         }
 
         // 질문 수정 함수
@@ -182,7 +189,7 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <h5>질문 추가</h5>
-                    <input type="text" id="newQuestion" class="form-control" placeholder="질문을 입력하세요">
+                    <input type="text" id="newQuestion" class="form-control" placeholder="질문을 입력하세요" onkeypress="show_name(event)">
                     <button class="btn btn-success mt-3" onclick="addQuestion()">추가</button>
                 </div>
             </div>
