@@ -30,6 +30,34 @@
         .list-group-item {
             font-size: 18px; /* 질문 목록 아이템의 글자 크기 */
         }
+            #timer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        #input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        #button-container {
+            display: flex;
+            gap: 10px;
+        }
+        #timer-display {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        input[type="number"] {
+            width: 60px;
+            padding: 10px;
+            font-size: 1em;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+        }
     </style>
     <script>
         // 질문 목록 (로컬 스토리지에서 로드하거나 기본값 설정)
@@ -167,6 +195,54 @@
             // 다음 질문 버튼 상태 업데이트
             document.getElementById("nextButton").disabled = currentQuestionIndex >= questions.length - 1;
         }
+
+        let timerInterval;
+        let timeLeft;
+        
+        function startTimer() {
+            const hours = parseInt(document.getElementById('hours').value, 10) || 0;
+            const minutes = parseInt(document.getElementById('minutes').value, 10) || 0;
+            const seconds = parseInt(document.getElementById('seconds').value, 10) || 0;
+        
+            timeLeft = (hours * 3600) + (minutes * 60) + seconds;
+        
+            if (timeLeft <= 0) {
+                alert("0보다 큰 시간을 입력해주세요.");
+                return;
+            }
+        
+            updateTimerDisplay();
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                } else {
+                    timeLeft--;
+                    updateTimerDisplay();
+                }
+            }, 1000);
+        }
+        
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+        
+        function resetTimer() {
+            clearInterval(timerInterval);
+            document.getElementById('hours').value = 0;
+            document.getElementById('minutes').value = 0;
+            document.getElementById('seconds').value = 0;
+            document.getElementById('timer-display').innerText = '00:00:00';
+        }
+        
+        function updateTimerDisplay() {
+            const hours = Math.floor(timeLeft / 3600);
+            const minutes = Math.floor((timeLeft % 3600) / 60);
+            const seconds = timeLeft % 60;
+        
+            document.getElementById('timer-display').innerText = 
+                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
     </script>
 </head>
 
@@ -180,6 +256,18 @@
                 </div>
             </div>
             <div class="card mb-3">
+                <div class="card-body">
+                    <div id="timer-display">00:00:00</div>
+                    <div id="input-container">
+                        <input type="number" id="minutes" placeholder="분" min="0" value="0">
+                        <input type="number" id="seconds" placeholder="초" min="0" value="0">                        
+                    </div>
+                    <div id="button-container">
+                        <button onclick="startTimer()">시작</button>
+                        <button onclick="stopTimer()">멈춤</button>
+                        <button onclick="resetTimer()">초기화</button>                        
+                    </div>
+                </div>
                 <div class="card-body">
                     <button id="prevButton" class="btn btn-secondary mt-3" onclick="prevQuestion()">이전</button>
                     <button id="nextButton" class="btn btn-secondary mt-3" onclick="nextQuestion()">다음</button>
