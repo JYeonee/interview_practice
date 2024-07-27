@@ -72,7 +72,8 @@
         // 현재 질문 인덱스 추적 변수
         let currentQuestionIndex = 0;
         let listVisible = true;
-
+        let timerInterval;
+        let timeLeft;
         // 페이지 로드 시 초기화
         window.onload = function() {
             loadQuestion(currentQuestionIndex);
@@ -196,15 +197,13 @@
             document.getElementById("nextButton").disabled = currentQuestionIndex >= questions.length - 1;
         }
 
-        let timerInterval;
-        let timeLeft;
+
         
         function startTimer() {
-            const hours = parseInt(document.getElementById('hours').value, 10) || 0;
             const minutes = parseInt(document.getElementById('minutes').value, 10) || 0;
             const seconds = parseInt(document.getElementById('seconds').value, 10) || 0;
         
-            timeLeft = (hours * 3600) + (minutes * 60) + seconds;
+            timeLeft = (minutes * 60) + seconds;
         
             if (timeLeft <= 0) {
                 alert("0보다 큰 시간을 입력해주세요.");
@@ -229,14 +228,12 @@
         
         function resetTimer() {
             clearInterval(timerInterval);
-            document.getElementById('hours').value = 0;
             document.getElementById('minutes').value = 0;
             document.getElementById('seconds').value = 0;
             document.getElementById('timer-display').innerText = '00:00:00';
         }
         
         function updateTimerDisplay() {
-            const hours = Math.floor(timeLeft / 3600);
             const minutes = Math.floor((timeLeft % 3600) / 60);
             const seconds = timeLeft % 60;
         
@@ -255,7 +252,7 @@
                     <h5 id="question">여기에 질문이 표시됩니다.</h5>
                 </div>
             </div>
-            <div class="card mb-3">
+            <div class="card mb-3 flex">
                 <div class="card-body">
                     <div id="timer-display">00:00:00</div>
                     <div id="input-container">
