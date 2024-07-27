@@ -238,7 +238,7 @@
             const seconds = timeLeft % 60;
         
             document.getElementById('timer-display').innerText = 
-                `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
         }
     </script>
 </head>
@@ -252,24 +252,32 @@
                     <h5 id="question">여기에 질문이 표시됩니다.</h5>
                 </div>
             </div>
-            <div class="card mb-3 flex">
-                <div class="card-body">
-                    <div id="timer-display">00:00:00</div>
-                    <div id="input-container">
-                        <input type="number" id="minutes" placeholder="분" min="0" value="0">
-                        <input type="number" id="seconds" placeholder="초" min="0" value="0">                        
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+                        <div id="timer-display">00:00:00</div>                   
+                        <div>
+                            <input class="form-control" type="number" id="minutes" placeholder="분" min="0" value="0">
+                            <input class="form-control" type="number" id="seconds" placeholder="초" min="0" value="0">                        
+                        </div>
+                        <div id="button-container">
+                            <button class="btn btn-info mt-3" onclick="startTimer()">시작</button>
+                            <button class="btn btn-warning mt-3" onclick="stopTimer()">멈춤</button>
+                            <button class="btn btn-danger mt-3" onclick="resetTimer()">초기화</button>                        
+                        </div>
                     </div>
-                    <div id="button-container">
-                        <button onclick="startTimer()">시작</button>
-                        <button onclick="stopTimer()">멈춤</button>
-                        <button onclick="resetTimer()">초기화</button>                        
+                    <div class="col-sm">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <button id="prevButton" class="btn btn-secondary mt-3" onclick="prevQuestion()">이전</button>
+                                <button id="nextButton" class="btn btn-secondary mt-3" onclick="nextQuestion()">다음</button>
+                                <button class="btn btn-warning mt-3" onclick="randomQuestion()">랜덤</button>
+                            </div>
+                        </div>                        
                     </div>
-                </div>
-                <div class="card-body">
-                    <button id="prevButton" class="btn btn-secondary mt-3" onclick="prevQuestion()">이전</button>
-                    <button id="nextButton" class="btn btn-secondary mt-3" onclick="nextQuestion()">다음</button>
-                    <button class="btn btn-warning mt-3" onclick="randomQuestion()">랜덤</button>
-                </div>
+                 </div>
+
+                    
             </div>
             <div class="card mb-3">
                 <div class="card-body">
