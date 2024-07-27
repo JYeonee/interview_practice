@@ -38,6 +38,7 @@
         }
         #input-container {
             display: flex;
+            flex-direction: row;
             gap: 10px;
             margin-bottom: 20px;
         }
@@ -254,17 +255,20 @@
             </div>
             <div class="container">
                 <div class="row">
-                    <div class="col-sm card mb-3">
-                        <div id="timer-display">00:00:00</div>                   
-                        <div id="button-continer">
-                            <input class="form-control" type="number" id="minutes" placeholder="분" min="0" value="0">
-                            <input class="form-control" type="number" id="seconds" placeholder="초" min="0" value="0">                        
+                    <div class="col-sm">
+                        <div class="card mb-3">
+                            <div id="timer-display">00:00:00</div>                   
+                            <div id="input-container">
+                                <input class="form-control" type="number" id="minutes" placeholder="분" min="0" value="0">
+                                <input class="form-control" type="number" id="seconds" placeholder="초" min="0" value="0">                        
+                            </div>
+                            <div id="button-container">
+                                <button class="btn btn-info mt-3" onclick="startTimer()">시작</button>
+                                <button class="btn btn-warning mt-3" onclick="stopTimer()">멈춤</button>
+                                <button class="btn btn-danger mt-3" onclick="resetTimer()">초기화</button>                        
+                            </div>
                         </div>
-                        <div id="button-container">
-                            <button class="btn btn-info mt-3" onclick="startTimer()">시작</button>
-                            <button class="btn btn-warning mt-3" onclick="stopTimer()">멈춤</button>
-                            <button class="btn btn-danger mt-3" onclick="resetTimer()">초기화</button>                        
-                        </div>
+                        
                     </div>
                     <div class="col-sm">
                         <div class="card mb-3">
